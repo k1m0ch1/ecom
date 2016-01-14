@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-Class Book extends Eloquent {
+use Illuminate\Database\Eloquent\Model;
+
+Class Book extends Model {
 
 	protected $table = 'books';
 

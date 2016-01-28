@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Fzaninotto\Faker;
 use App\Models\Book;
 
-class AuthorSeeder extends Seeder{
+class BookSeeder extends Seeder{
 
     public function run(){
 

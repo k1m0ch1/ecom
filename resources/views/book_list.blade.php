@@ -14,6 +14,7 @@
               <h4>{{$book->title}}</h4>
               <p>Author : <b>{{$book->author->name}} {{$book->author->surname}}</b></p>
               <p>Price : <b>{{$book->price}}</b></p>
+              @if(Auth::check())
               <form action="/cart/add" name="add_to_cart" method="post" accept-charset="UTF-8">
                 <input type="hidden" name="book" value="{{$book->id}}" />
                 <select name="amount" style="width: 100%;">
@@ -26,6 +27,7 @@
                 {!! csrf_field() !!}
               <p align="center"><button class="btn btn-info btn-block">Add to Cart</button></p>
             </form>
+            @endif
             </div>
           </div>
         </li>

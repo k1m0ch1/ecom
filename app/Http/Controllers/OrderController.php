@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\BookOrder;
 use App\Models\Cart;
+use App\Models\Order;
 
 use Auth;
 use Validator;

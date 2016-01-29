@@ -57,6 +57,8 @@ Route::group(['middleware' => 'web'], function () {
 	Route::post('/order', array('before'=>'auth.basic','uses'=>'OrderController@postOrder'));
 	Route::get('/user/orders', array('before'=>'auth.basic','uses'=>'OrderController@getIndex'));
 
+	Route::get('/book/detail/{id}','BookController@detail');
+
 	Route::get('/backend/dashboard', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'BookController@dashboard']);
 
 	Route::get('/backend/book', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'BookController@dashboard']);
@@ -65,6 +67,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/backend/book/delete/{id}', array('before'=>'auth.basic','as'=>'delete_book','uses'=>'BookController@destroy'));
 	Route::get('/backend/book/edit/{id}', array('before'=>'auth.basic','as'=>'edit_book','uses'=>'BookController@edit'));
 	Route::post('/backend/book/edit/{id}', array('before'=>'auth.basic','as'=>'edit_book','uses'=>'BookController@update'));
+	Route::get('/backend/inventory/habis/{id}', array('before'=>'auth.basic','as'=>'habis_book','uses'=>'InventoryController@setHabis'));
 
 	Route::get('/backend/order', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'OrderController@dashboard']);
 	Route::get('/backend/order/delete/{id}', array('before'=>'auth.basic','as'=>'delete_order','uses'=>'OrderController@destroy'));
@@ -74,4 +77,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/backend/account', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'UserController@dashboard']);
 	Route::get('/backend/account/delete/{id}', array('before'=>'auth.basic','as'=>'delete_user','uses'=>'UserController@destroy'));
 	Route::get('/backend/account/edit/{id}', array('before'=>'auth.basic','as'=>'delete_user','uses'=>'UserController@edit'));
+
+	Route::get('/backend/inventory', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'InventoryController@dashboard']);
+	
 });

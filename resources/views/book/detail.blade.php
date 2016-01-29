@@ -2,14 +2,9 @@
 
 @section('content')
 
-<div class="container">
-  <div class="span12">
-    <div class="row">
-      <ul class="thumbnails">
-        @foreach($books as $book)
-        <li class="span4">
-          <a href="/book/detail/{{$book->id}}">
-          <div class="thumbnail">
+<div class="container" style="width:60%">
+  <h1>{{$book->title}}</h1>
+    <div class="thumbnail">
             <div style="background-repeat: no-repeat; background-image: url('{{asset('/asset/img/'.$book->cover)}}'); height:300px; width:300px; background-size: cover;"></div>
             <div class="caption">
               <h4>{{$book->title}}</h4>
@@ -31,12 +26,5 @@
             @endif
             </div>
           </div>
-          </a>
-        </li>
-        @endforeach
-      </ul>
-    </div>
-  </div>
 </div>
-
 @stop

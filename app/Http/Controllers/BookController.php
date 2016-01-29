@@ -30,6 +30,12 @@ class BookController extends BaseController{
   		return view('book/_form', compact('books', 'authorOption'));
   	}
 
+    public function detail($id){
+      $book = Book::findorFail($id);
+
+      return view('book/detail', compact('book'));
+    }
+
   	public function store(Request $req){
   		$books = new Book;
   		$books->title = $req->input('title');

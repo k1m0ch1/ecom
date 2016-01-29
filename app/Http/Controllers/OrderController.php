@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
-use App\Models\Order;
+use App\Models\BookOrder;
 use App\Models\Cart;
 
 use Auth;
@@ -13,8 +13,12 @@ use Validator;
 
 class OrderController extends BaseController {
 
-  public function postOrder(Request $req)
-  {
+  public function dashboard(){
+      $order = BookOrder::all();
+      return view('order/index', compact('order'));
+    }
+
+  public function postOrder(Request $req){
     $rules=array(
 
       'address'=>'required'
@@ -24,7 +28,7 @@ class OrderController extends BaseController {
 
       if ($validator->fails())
       {
-          return Redirect::route('cart')->with('error','Address field is required!');
+          return redirect()->route('cart')->with('error','Address field is required!');
       }
 
       $member_id = Auth::user()->id;
@@ -35,23 +39,31 @@ class OrderController extends BaseController {
        $cart_total=Cart::with('Books')->where('member_id','=',$member_id)->sum('total');
 
        if(!$cart_books){
-
          return redirect()->route('index')->with('error','Your cart is empty.');
        }
 
-      $order = Order::create(
-        array(
-        'member_id'=>$member_id,
-        'address'=>$address,
-        'total'=>$cart_total
-        ));
+      // $order = Order::create(
+      //   array(
+      //   'member_id'=>$member_id,
+      //   'address'=>$address,
+      //   'total'=>$cart_total
+      //   ));
+
+       $order = new Order;
+       $order->member_id = $member_id;
+       $order->address = $address;
+       $order->total = $cart_total;
+       $order->save();
 
       foreach ($cart_books as $order_books) {
 
+        $date = date_create();
         $order->orderItems()->attach($order_books->book_id, array(
           'amount'=>$order_books->amount,
           'price'=>$order_books->Books->price,
-          'total'=>$order_books->Books->price*$order_books->amount
+          'total'=>$order_books->Books->price*$order_books->amount,
+          'created_at'=>date_format($date, 'Y-m-d H:i:s'),
+          'updated_at'=>date_format($date, 'Y-m-d H:i:s')
           ));
 
       }

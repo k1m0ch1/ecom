@@ -12,4 +12,9 @@ class BookController extends BaseController{
     	$books = Book::all();
     	return view('book_list', compact('books'));
   	}
+
+  	public function dashboard(){
+  		$book = Book::all();
+  		return view('book/index', compact('book'));
+  	}
 }

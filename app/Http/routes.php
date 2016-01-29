@@ -56,4 +56,18 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/cart/delete/{id}', array('before'=>'auth.basic','as'=>'delete_book_from_cart','uses'=>'CartController@getDelete'));
 	Route::post('/order', array('before'=>'auth.basic','uses'=>'OrderController@postOrder'));
 	Route::get('/user/orders', array('before'=>'auth.basic','uses'=>'OrderController@getIndex'));
+
+	Route::get('/backend/dashboard', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'BookController@dashboard']);
+
+	Route::get('/backend/book', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'BookController@dashboard']);
+	Route::get('/backend/book/delete/{id}', array('before'=>'auth.basic','as'=>'delete_book','uses'=>'BookController@destroy'));
+	Route::get('/backend/book/edit/{id}', array('before'=>'auth.basic','as'=>'delete_book','uses'=>'BookController@edit'));
+
+	Route::get('/backend/order', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'OrderController@dashboard']);
+	Route::get('/backend/order/delete/{id}', array('before'=>'auth.basic','as'=>'delete_order','uses'=>'OrderController@destroy'));
+	Route::get('/backend/order/edit/{id}', array('before'=>'auth.basic','as'=>'delete_order','uses'=>'OrderController@edit'));
+
+	Route::get('/backend/account', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'UserController@dashboard']);
+	Route::get('/backend/account/delete/{id}', array('before'=>'auth.basic','as'=>'delete_user','uses'=>'UserController@destroy'));
+	Route::get('/backend/account/edit/{id}', array('before'=>'auth.basic','as'=>'delete_user','uses'=>'UserController@edit'));
 });

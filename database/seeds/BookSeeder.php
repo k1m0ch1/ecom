@@ -58,7 +58,7 @@ class BookSeeder extends Seeder{
 
         Book::create(array(
             'author_id' => 5,
-            'title' => 'Kambing Jantan: Sebuah Catatan Harian Pelajar Bodoh',
+            'title' => 'Kambing Jantan',
             'isbn'=>'9793600691',
             'price'=>'13.40',
             'cover'=>'kambing-jantan.jpg',

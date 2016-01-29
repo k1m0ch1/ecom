@@ -30,6 +30,6 @@ class CreateOrderBookTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('book_order');
     }
 }

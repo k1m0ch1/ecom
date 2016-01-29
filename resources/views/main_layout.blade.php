@@ -46,10 +46,11 @@
                         <ul class="dropdown-menu">
                             <li><a href="/user/orders"><i class="icon-envelope"></i> My Orders</a></li>
                             <li class="divider"></li>
-                            <li><a href="/user/logout"><i class="icon-off"></i> Logout</a></li>
                             @if(Auth::user()->id=='1')
-                              bangke
-                            @endif
+                              <li><a href="/backend/dashboard"><i class="icon-plus"></i> Admin Backend</a></li>
+                              <li class="divider"></li>
+                            @endif                            
+                            <li><a href="/user/logout"><i class="icon-off"></i> Logout</a></li>
                         </ul>
                     </li>
                 @endif

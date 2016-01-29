@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="container" style="width:60%">
-  <a href="/" class="pull-right btn btn-primary btn-large col-x-1">Tambah Buku Baru</a>
   <h1>Daftar Order</h1>
   <table class="table">
     <tbody>
@@ -23,8 +22,8 @@
           <td>{{$od->order->address}}</td>
           <td>{{$od->total}}</td>
           <td>
-            <a href="{{URL::route('delete_book_from_cart',array($od->id))}}">Edit</a>
-            <a href="{{URL::route('delete_book_from_cart',array($od->id))}}">Delete</a>
+            <a href="{{URL::route('confirmed',array($od->id))}}">Sudah Diterima</a>
+            <a href="{{URL::route('confirmed',array($od->id))}}">Sudah Diterima</a>
           </td>
         </tr>
       @endforeach

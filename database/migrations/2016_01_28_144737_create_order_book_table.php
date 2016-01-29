@@ -12,7 +12,7 @@ class CreateOrderBookTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_books', function(Blueprint $table){
+        Schema::create('book_order', function(Blueprint $table){
               $table->increments('id');
               $table->integer('order_id');
               $table->integer('book_id');

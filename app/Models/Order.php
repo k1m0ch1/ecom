@@ -10,7 +10,7 @@ Class Order extends Model {
 	protected $fillable = array('member_id','address','total');
 
 	public function orderItems(){
-        return $this->belongsToMany('Book') ->withPivot('amount','total');
+        return $this->belongsToMany('App\Models\Book')->withPivot('amount','total');
     }
 
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 Class Cart extends Model {
@@ -10,7 +11,7 @@ Class Cart extends Model {
 	protected $fillable = array('member_id','book_id','amount','total');
 
 	public function Books(){
-		return $this->belongsTo('Book','book_id');
+		return $this->belongsTo('App\Models\Book','book_id');
 	}
 
 }

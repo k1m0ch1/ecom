@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Awesome Book Store</title>
+  <title>Book Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Bootstrap -->
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="/">Awesome Book Store</a>
+            <a class="brand" href="/">Book Store</a>
             <div class="nav-collapse collapse">
               <ul class="nav">
                   <li class="divider-vertical"></li>
@@ -31,11 +31,13 @@
                     <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                       <p>Please Login</a>
                         <form action="/user/login" method="post" accept-charset="UTF-8">
+                        {!! csrf_field() !!}
                           <input id="email" style="margin-bottom: 15px;" type="text" name="email" size="30" placeholder="email" />
                           <input id="password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
                           <input class="btn btn-info" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
                         </form>
                       </div>
+                      <li><a href="/auth/register"><i class="icon-person"></i>Register</a></li>
                     </li>
                   </ul>
                 @else
@@ -45,6 +47,9 @@
                             <li><a href="/user/orders"><i class="icon-envelope"></i> My Orders</a></li>
                             <li class="divider"></li>
                             <li><a href="/user/logout"><i class="icon-off"></i> Logout</a></li>
+                            @if(Auth::user()->id=='1')
+                              bangke
+                            @endif
                         </ul>
                     </li>
                 @endif

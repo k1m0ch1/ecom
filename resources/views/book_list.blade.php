@@ -9,9 +9,9 @@
         @foreach($books as $book)
         <li class="span4">
           <div class="thumbnail">
-            <img src="/images/{{$book->cover}}" alt="ALT NAME">
+            <div style="background-repeat: no-repeat; background-image: url('{{asset('/asset/img/'.$book->cover)}}'); height:300px; width:300px; background-size: cover;"></div>
             <div class="caption">
-              <h3>{{$book->title}}</h3>
+              <h4>{{$book->title}}</h4>
               <p>Author : <b>{{$book->author->name}} {{$book->author->surname}}</b></p>
               <p>Price : <b>{{$book->price}}</b></p>
               <form action="/cart/add" name="add_to_cart" method="post" accept-charset="UTF-8">
@@ -23,6 +23,7 @@
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
+                {!! csrf_field() !!}
               <p align="center"><button class="btn btn-info btn-block">Add to Cart</button></p>
             </form>
             </div>

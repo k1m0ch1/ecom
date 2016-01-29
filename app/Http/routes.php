@@ -30,9 +30,30 @@ Route::group(['middleware' => ['web']], function () {
     //
 });
 
-Route::get('/', ['middleware' => 'guest', 'uses' => 'BookController@getIndex']);
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::group(['middleware' => 'web'], function () {
+
+	Route::auth();
+
+    //Route::get('/home', 'HomeController@index');
+
+    Route::get('/', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'BookController@getIndex']);
+	Route::get('/auth/register', 'Auth\AuthController@getRegister');
+	Route::post('/auth/register', 'Auth\AuthController@postRegister');
+
+	Route::get('/auth/login', 'Auth\AuthController@getLogin');
+	Route::post('/auth/login', 'Auth\AuthController@postLogin');
+	Route::get('/login', 'Auth\AuthController@getLogin');
+	Route::post('/login', 'Auth\AuthController@postLogin');
+	Route::get('/user/login', 'Auth\AuthController@getLogin');
+	Route::post('/user/login', 'Auth\AuthController@postLogin');
+
+	Route::get('/auth/logout', 'HomeController@getLogout');
+	Route::get('/logout', 'HomeController@getLogout');
+	Route::get('/user/logout', 'HomeController@getLogout');
+
+	Route::get('/cart', array('before'=>'auth.basic','as'=>'cart','uses'=>'CartController@getIndex'));
+	Route::post('/cart/add', ['middleware'=>'auth','uses'=>'CartController@postAddToCart']);
+	Route::get('/cart/delete/{id}', array('before'=>'auth.basic','as'=>'delete_book_from_cart','uses'=>'CartController@getDelete'));
+	Route::post('/order', array('before'=>'auth.basic','uses'=>'OrderController@postOrder'));
+	Route::get('/user/orders', array('before'=>'auth.basic','uses'=>'OrderController@getIndex'));
+});

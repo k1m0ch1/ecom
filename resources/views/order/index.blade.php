@@ -22,8 +22,8 @@
           <td>{{$od->order->address}}</td>
           <td>{{$od->total}}</td>
           <td>
-            <a href="{{URL::route('confirmed',array($od->id))}}">Sudah Diterima</a>
-            <a href="{{URL::route('confirmed',array($od->id))}}">Sudah Diterima</a>
+            <a href="{{URL::route('confirmed_order',array($od->id))}}">Confirmed</a> |
+            <a href="{{URL::route('delete_order',array($od->id))}}">Delete</a>
           </td>
         </tr>
       @endforeach

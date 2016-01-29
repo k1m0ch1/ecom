@@ -13,7 +13,7 @@
         <td><b>ISBN</b></td>
         <td><b>Price</b></td>
         <td><b>Cover</b></td>
-        <td><b>Action</b></td>
+        <td width="100px"><b>Action</b></td>
       </tr>
       @foreach($book as $buku)
         <tr>
@@ -23,7 +23,7 @@
           <td>{{$buku->price}}</td>
           <td>{{$buku->cover}}</td>
           <td>
-            <a href="{{URL::route('edit_book',array($buku->id))}}">Edit</a>
+            <a href="{{URL::route('edit_book',array($buku->id))}}">Edit</a> |
             <a href="{{URL::route('delete_book',array($buku->id))}}">Delete</a>
           </td>
         </tr>

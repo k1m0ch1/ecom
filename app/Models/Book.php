@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 Class Book extends Model {
 
+	const UPLOAD_PATH = 'asset/img/';
+
 	protected $table = 'books';
 
 	protected $fillable = array('title','isbn','cover','price','author_id');
@@ -13,5 +15,4 @@ Class Book extends Model {
 	public function Author(){
 		return $this->belongsTo('App\Models\Author');
 	}
-
 }

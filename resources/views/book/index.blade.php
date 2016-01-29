@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container" style="width:60%">
-  <a href="/" class="pull-right btn btn-primary btn-large col-x-1">Tambah Buku Baru</a>
+  <a href="/backend/book/create" class="pull-right btn btn-primary btn-large col-x-1">Tambah Buku Baru</a>
   <h1>Daftar Buku</h1>
   <table class="table">
     <tbody>
@@ -23,8 +23,8 @@
           <td>{{$buku->price}}</td>
           <td>{{$buku->cover}}</td>
           <td>
-            <a href="{{URL::route('delete_book_from_cart',array($buku->id))}}">Edit</a>
-            <a href="{{URL::route('delete_book_from_cart',array($buku->id))}}">Delete</a>
+            <a href="{{URL::route('edit_book',array($buku->id))}}">Edit</a>
+            <a href="{{URL::route('delete_book',array($buku->id))}}">Delete</a>
           </td>
         </tr>
       @endforeach

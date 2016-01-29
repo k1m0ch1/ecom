@@ -9,4 +9,10 @@ Class Author extends Model {
 
 	protected $fillable = array('name','surname');
 
+	public function option(){
+    	$option = self::all()->pluck('name', 'id')->toArray();
+    
+    	return $option;
+    }
+
 }

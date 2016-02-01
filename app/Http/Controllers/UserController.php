@@ -12,14 +12,14 @@ use Validator;
 
 class UserController extends BaseController {
 
-  public function postLogin(){
-    $email=Input::get('email');
-    $password=Input::get('password');
+  public function postLogin(Request $req){
+    $email=$req->input('email');
+    $password=$re->input('password');
 
     if (Auth::attempt(array('email' => $email, 'password' => $password))){
-        return Redirect::route('index');
+        return redirect('/');
     }else{
-      return Redirect::route('index')->with('error','Please check your password & email');
+      return redirect()->route('index')->with('error','Please check your password & email');
     }
   }
 
@@ -30,6 +30,12 @@ class UserController extends BaseController {
 
   public function getLogout(){
     Auth::logout();
-    return Redirect::route('index');
+    return redirect('/');
+  }
+
+  public function destroy($id){
+    $books = Book::findorfail($id);
+    $books->delete();
+    return redirect('/backend/account');
   }
 }

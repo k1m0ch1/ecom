@@ -17,7 +17,7 @@ class CreateTableBooks extends Migration
           $table->integer('author_id');
           $table->string('title');
           $table->string('isbn');
-          $table->decimal('price',5,2);
+          $table->decimal('price',8);
           $table->string('cover');
           $table->timestamps();
         });

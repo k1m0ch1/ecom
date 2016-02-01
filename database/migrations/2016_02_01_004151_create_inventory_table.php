@@ -14,9 +14,9 @@ class CreateInventoryTable extends Migration
     {
         Schema::create('inventory', function(Blueprint $table){
           $table->increments('id');
-          $table->integer('distributor_id');
-          $table->string('title');
-          $table->integer('quantity');
+          $table->integer('book_id');
+          $table->integer('stock');
+          $table->integer('quota');
           $table->timestamps();
         });
     }

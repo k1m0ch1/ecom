@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\BookOrder;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Inventory;
+use App\Models\HistoryOrder;
 
 use Auth;
 use Validator;
@@ -15,7 +17,7 @@ use Validator;
 class OrderController extends BaseController {
 
   public function dashboard(){
-      $order = BookOrder::all();
+      $order = BookOrder::orderBy('id', 'desc')->get();
       return view('order/index', compact('order'));
     }
 
@@ -43,13 +45,6 @@ class OrderController extends BaseController {
          return redirect()->route('index')->with('error','Your cart is empty.');
        }
 
-      // $order = Order::create(
-      //   array(
-      //   'member_id'=>$member_id,
-      //   'address'=>$address,
-      //   'total'=>$cart_total
-      //   ));
-
        $order = new Order;
        $order->member_id = $member_id;
        $order->address = $address;
@@ -66,12 +61,34 @@ class OrderController extends BaseController {
           'created_at'=>date_format($date, 'Y-m-d H:i:s'),
           'updated_at'=>date_format($date, 'Y-m-d H:i:s')
           ));
-
       }
       
       Cart::where('member_id','=',$member_id)->delete();
 
       return redirect()->route('index')->with('message','Your order processed successfully.');
+  }
+
+  public function orderConfirmed($id){
+      $bo = BookOrder::findorfail($id);
+      $inv = Inventory::findorfail($bo->order_id);
+      $inv2 = Inventory::findorfail($bo->order_id)->get();
+      $inv->stock = $inv2->stock - $bo->amount;
+      $inv->save();
+      $order = new HistoryOrder;
+      $order->orderItems()->attach($bo->book_id, array(
+          'amount'=>$bo->amount,
+          'price'=>$bo->price,
+          'total'=>$bo->total,
+          'created_at'=>$bo->created_at,
+          'updated_at'=>$bo->updated_at
+          ));
+      $bo->delete();
+  }
+
+  public function destroy($id){
+      $inv = BookOrder::findorfail($id);
+      $inv->delete();
+      return redirect('/backend/order');
   }
 
 

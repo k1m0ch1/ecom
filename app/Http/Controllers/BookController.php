@@ -6,28 +6,34 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Author;
+use App\Models\Penerbit;
+use App\Models\Inventory;
 
 class BookController extends BaseController{
 
   	public function getIndex(){
-    	$books = Book::all();
+    	$books = Book::orderby('id', 'desc')->get();
     	return view('book_list', compact('books'));
   	}
 
   	public function create(){
   		$books = new Book;
   		$authorOption = new Author;
+      $penerbitOption = new Penerbit;
   		$authorOption = $authorOption->option();
+      $penerbitOption = $penerbitOption->option();
 
-  		return view('book/_form', compact('books', 'authorOption'));
+  		return view('book/_form', compact('books', 'authorOption', 'penerbitOption'));
   	}
 
   	public function edit($id){
   		$books = Book::findorFail($id);
   		$authorOption = new Author;
+      $penerbitOption = new Penerbit;
   		$authorOption = $authorOption->option();
+      $penerbitOption = $penerbitOption->option();
 
-  		return view('book/_form', compact('books', 'authorOption'));
+  		return view('book/_form', compact('books', 'authorOption', 'penerbitOption'));
   	}
 
     public function detail($id){
@@ -42,6 +48,8 @@ class BookController extends BaseController{
   		$books->author_id = $req->input('author_id');
   		$books->isbn = $req->input('isbn');
   		$books->price = $req->input('price');
+      $books->penerbit_id = $req->input('penerbit_id');
+      $books->sinopsis = $req->input('sinopsis');
 
   		if (!$req->hasFile('cover')){
                 $books->cover = '';
@@ -66,9 +74,10 @@ class BookController extends BaseController{
   		$books->author_id = $req->input('author_id');
   		$books->isbn = $req->input('isbn');
   		$books->price = $req->input('price');
+      $books->penerbit_id = $req->input('penerbit_id');
+      $books->sinopsis = $req->input('sinopsis');
 
   		if (!$req->hasFile('cover')){
-                $books->cover = '';
         }else{
                 // upload file
                 $destination = Book::UPLOAD_PATH;
@@ -87,11 +96,13 @@ class BookController extends BaseController{
   	public function destroy($id){
   		$books = Book::findorfail($id);
   		$books->delete();
+      $inv = Inventory::where('book_id', $id);
+      $inv->delete();
   		return redirect('/backend/book');
   	}
 
   	public function dashboard(){
-  		$book = Book::all();
+  		$book = Book::orderby('id', 'desc')->get();
   		return view('book/index', compact('book'));
   	}
 }

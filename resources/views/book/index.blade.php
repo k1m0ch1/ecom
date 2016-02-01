@@ -24,7 +24,6 @@
           <td>{{$buku->cover}}</td>
           <td>
             <a href="{{URL::route('edit_book',array($buku->id))}}">Edit</a> |
-            <a href="{{URL::route('habis_book',array($buku->id))}}">Habis</a> |
             <a href="{{URL::route('delete_book',array($buku->id))}}">Delete</a>
           </td>
         </tr>

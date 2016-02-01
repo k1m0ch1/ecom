@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDistributionTable extends Migration
+class AlterTableOrder extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,8 @@ class CreateDistributionTable extends Migration
      */
     public function up()
     {
-        Schema::create('distributor', function(Blueprint $table){
-          $table->increments('id');
-          $table->string('name');
-          $table->string('contact');
-          $table->string('address');
-          $table->timestamps();
+        Schema::table('book_order', function ($table) {
+            $table->date('confirmed');
         });
     }
 
@@ -28,6 +24,6 @@ class CreateDistributionTable extends Migration
      */
     public function down()
     {
-        Schema::drop('distributor');
+        //
     }
 }

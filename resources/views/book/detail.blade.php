@@ -5,11 +5,12 @@
 <div class="container" style="width:60%">
   <h1>{{$book->title}}</h1>
     <div class="thumbnail">
-            <div style="background-repeat: no-repeat; background-image: url('{{asset('/asset/img/'.$book->cover)}}'); height:300px; width:300px; background-size: cover;"></div>
+            <img src='{{asset('/asset/img/'.$book->cover)}}'/>
             <div class="caption">
               <h4>{{$book->title}}</h4>
-              <p>Author : <b>{{$book->author->name}} {{$book->author->surname}}</b></p>
-              <p>Price : <b>{{$book->price}}</b></p>
+              <p>Penulis : <b>{{$book->author->name}} {{$book->author->surname}}</b></p>
+              <p>Harga : <b>RP {{$book->price}},-</b></p>
+              <p>Sinopsis : <b>{!! $book->sinopsis !!}</b></p>
               @if(Auth::check())
               <form action="/cart/add" name="add_to_cart" method="post" accept-charset="UTF-8">
                 <input type="hidden" name="book" value="{{$book->id}}" />

@@ -56,12 +56,15 @@
       </tr>
     </tbody>
   </table>
-  <h1>Shipping</h1>
+  <h1>Alamat Pengiriman</h1>
   <form action="/order" method="post" accept-charset="UTF-8">
-    <label>Address</label>
-    <textarea class="span4" name="address" rows="5"></textarea>
+    <label>Alamat</label>
+    <textarea class="span10" name="address" rows="5"></textarea>
     {!! csrf_field() !!}
-    <button class="btn btn-block btn-primary btn-large">Place order</button>
+    <p>
+      <button class="btn btn-block btn-primary btn-medium">Mulai Pembayaran</button>
+      <a href="{{asset('/')}}" class="btn btn-block btn-primary btn-medium">Pesan Lagi</a>
+    </p>
   </form>
 </div>
 @stop

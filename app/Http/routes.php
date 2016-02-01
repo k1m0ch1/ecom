@@ -59,9 +59,9 @@ Route::group(['middleware' => 'web'], function () {
 
 	Route::get('/book/detail/{id}','BookController@detail');
 
-	Route::get('/backend/dashboard', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'BookController@dashboard']);
+	Route::get('/backend/dashboard', ['as'=>'Backendindex', 'middleware'=>'auth', 'uses' => 'BookController@dashboard']);
 
-	Route::get('/backend/book', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'BookController@dashboard']);
+	Route::get('/backend/book', ['as'=>'bookBackendindex', 'middleware'=>'auth', 'uses' => 'BookController@dashboard']);
 	Route::get('/backend/book/create', ['as'=>'createBook', 'middleware'=>'auth', 'uses' => 'BookController@create']);
 	Route::post('/backend/book/create', ['as'=>'createBook', 'middleware'=>'auth', 'uses' => 'BookController@store']);
 	Route::get('/backend/book/delete/{id}', array('before'=>'auth.basic','as'=>'delete_book','uses'=>'BookController@destroy'));
@@ -69,15 +69,34 @@ Route::group(['middleware' => 'web'], function () {
 	Route::post('/backend/book/edit/{id}', array('before'=>'auth.basic','as'=>'edit_book','uses'=>'BookController@update'));
 	Route::get('/backend/inventory/habis/{id}', array('before'=>'auth.basic','as'=>'habis_book','uses'=>'InventoryController@setHabis'));
 
-	Route::get('/backend/order', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'OrderController@dashboard']);
+	Route::get('/backend/order', ['middleware'=>'auth', 'uses' => 'OrderController@dashboard']);
 	Route::get('/backend/order/delete/{id}', array('before'=>'auth.basic','as'=>'delete_order','uses'=>'OrderController@destroy'));
-	Route::get('/backend/order/confirmed/{id}', array('before'=>'auth.basic','as'=>'confirmed_order','uses'=>'OrderController@destroy'));
+	Route::get('/backend/order/confirmed/{id}', array('before'=>'auth.basic','as'=>'confirmed_order','uses'=>'OrderController@orderConfirmed3'));
 	Route::get('/backend/order/edit/{id}', array('before'=>'auth.basic','as'=>'edit_order','uses'=>'OrderController@edit'));
 
-	Route::get('/backend/account', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'UserController@dashboard']);
+	Route::get('/backend/account', [ 'middleware'=>'auth', 'uses' => 'UserController@dashboard']);
 	Route::get('/backend/account/delete/{id}', array('before'=>'auth.basic','as'=>'delete_user','uses'=>'UserController@destroy'));
 	Route::get('/backend/account/edit/{id}', array('before'=>'auth.basic','as'=>'delete_user','uses'=>'UserController@edit'));
-
-	Route::get('/backend/inventory', ['as'=>'index', 'middleware'=>'auth', 'uses' => 'InventoryController@dashboard']);
 	
+	Route::get('/backend/penulis', [ 'middleware'=>'auth', 'uses' => 'AuthorController@getIndex']);
+	Route::get('/backend/penulis/create', [ 'middleware'=>'auth', 'uses' => 'AuthorController@create']);
+	Route::post('/backend/penulis/create', [ 'middleware'=>'auth', 'uses' => 'AuthorController@store']);
+	Route::get('/backend/penulis/edit/{id}', [ 'as'=>'edit_authors', 'middleware'=>'auth', 'uses' => 'AuthorController@edit']);
+	Route::post('/backend/penulis/edit/{id}', [ 'as'=>'edit_authors', 'middleware'=>'auth', 'uses' => 'AuthorController@update']);
+	Route::get('/backend/penulis/delete/{id}', [ 'as' => 'delete_authors', 'middleware'=>'auth', 'uses' => 'AuthorController@destroy']);
+
+	Route::get('/backend/penerbit', [ 'middleware'=>'auth', 'uses' => 'PenerbitController@getIndex']);
+	Route::get('/backend/penerbit/create', [ 'middleware'=>'auth', 'uses' => 'PenerbitController@create']);
+	Route::post('/backend/penerbit/create', [ 'middleware'=>'auth', 'uses' => 'PenerbitController@store']);
+	Route::get('/backend/penerbit/edit/{id}', [ 'as'=>'edit_penerbit', 'middleware'=>'auth', 'uses' => 'PenerbitController@edit']);
+	Route::post('/backend/penerbit/edit/{id}', [ 'as'=>'edit_penerbit', 'middleware'=>'auth', 'uses' => 'PenerbitController@update']);
+	Route::get('/backend/penerbit/delete/{id}', [ 'as' => 'delete_penerbit', 'middleware'=>'auth', 'uses' => 'PenerbitController@destroy']);
+
+	Route::get('/backend/inventory', [ 'middleware'=>'auth', 'uses' => 'InventoryController@getIndex']);
+	Route::get('/backend/inventory/create', [ 'middleware'=>'auth', 'uses' => 'InventoryController@create']);
+	Route::post('/backend/inventory/create', [ 'middleware'=>'auth', 'uses' => 'InventoryController@store']);
+	Route::get('/backend/inventory/edit/{id}', [ 'as'=>'edit_inv', 'middleware'=>'auth', 'uses' => 'InventoryController@edit']);
+	Route::post('/backend/inventory/edit/{id}', [ 'as'=>'edit_inv', 'middleware'=>'auth', 'uses' => 'InventoryController@update']);
+	Route::get('/backend/inventory/delete/{id}', [ 'as' => 'delete_inv', 'middleware'=>'auth', 'uses' => 'InventoryController@destroy']);
+
 });

@@ -21,6 +21,11 @@ class OrderController extends BaseController {
       return view('order/index', compact('order'));
     }
 
+    public function history(){
+      $order = HistoryOrder::orderBy('id', 'desc')->get();
+      return view('historyorder/index', compact('order'));
+    }
+
   public function postOrder(Request $req){
     $rules=array(
 
@@ -70,19 +75,22 @@ class OrderController extends BaseController {
 
   public function orderConfirmed($id){
       $bo = BookOrder::findorfail($id);
-      $inv = Inventory::findorfail($bo->order_id);
-      $inv2 = Inventory::findorfail($bo->order_id)->get();
+      $inv = Inventory::findorfail($bo->Books->Inventory->id);
+      $inv2 = Inventory::findorfail($bo->Books->Inventory->id);
       $inv->stock = $inv2->stock - $bo->amount;
-      $inv->save();
       $order = new HistoryOrder;
-      $order->orderItems()->attach($bo->book_id, array(
-          'amount'=>$bo->amount,
-          'price'=>$bo->price,
-          'total'=>$bo->total,
-          'created_at'=>$bo->created_at,
-          'updated_at'=>$bo->updated_at
-          ));
-      $bo->delete();
+      $order->book_id = $bo->book_id;
+      $order->order_id = $bo->order_id;
+      $order->amount = $bo->amount;
+      $order->price = $bo->price;
+      $order->total = $bo->total;
+      $order->created_at = $bo->created_at;
+      $order->updated_at = $bo->updated_at;
+      if($inv->save()){
+            $order->save();
+            $bo->delete();
+      }
+      return redirect('/backend/order');
   }
 
   public function destroy($id){

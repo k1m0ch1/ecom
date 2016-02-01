@@ -23,6 +23,7 @@
               <ul class="nav navbar-nav" style="margin-top:-18px; padding-left:-15px;">
                   <li><a href="/backend/book"><i class="glyphicon glyphicon-book icon-white"></i> Buku</a></li>
                   <li><a href="/backend/order"><i class="glyphicon glyphicon-list icon-white"></i> Order</a></li>
+                  <li><a href="/backend/history"><i class="glyphicon glyphicon-list icon-white"></i> History Order</a></li>
                   <li><a href="/backend/inventory"><i class="glyphicon glyphicon-th-list icon-white"></i> Inventory</a></li>
                   <li><a href="/backend/penulis"><i class="glyphicon glyphicon-user icon-white"></i> Penulis</a></li>
                   <li><a href="/backend/penerbit"><i class="glyphicon glyphicon-print icon-white"></i> Penerbit</a></li>
